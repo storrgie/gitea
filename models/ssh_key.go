@@ -694,7 +694,7 @@ func HasDeployKey(keyID, repoID int64) bool {
 }
 
 // AddDeployKey add new deploy key to database and authorized_keys file.
-func AddDeployKey(repoID int64, name, content string, readOnly bool) (*DeployKey, error) {
+func AddDeployKey(repoID, ownerID int64, name, content string, readOnly bool) (*DeployKey, error) {
 	fingerprint, err := calcFingerprint(content)
 	if err != nil {
 		return nil, err
@@ -709,6 +709,7 @@ func AddDeployKey(repoID int64, name, content string, readOnly bool) (*DeployKey
 		Fingerprint: fingerprint,
 		Mode:        accessMode,
 		Type:        KeyTypeDeploy,
+		OwnerID:     ownerID,
 	}
 	has, err := x.Get(pkey)
 	if err != nil {

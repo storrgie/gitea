@@ -160,7 +160,7 @@ func CreateDeployKey(ctx *context.APIContext, form api.CreateKeyOption) {
 		return
 	}
 
-	key, err := models.AddDeployKey(ctx.Repo.Repository.ID, form.Title, content, form.ReadOnly)
+	key, err := models.AddDeployKey(ctx.Repo.Repository.ID, ctx.User.ID, form.Title, content, form.ReadOnly)
 	if err != nil {
 		HandleAddKeyError(ctx, err)
 		return

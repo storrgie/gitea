@@ -582,7 +582,7 @@ func DeployKeysPost(ctx *context.Context, form auth.AddKeyForm) {
 		return
 	}
 
-	key, err := models.AddDeployKey(ctx.Repo.Repository.ID, form.Title, content, !form.IsWritable)
+	key, err := models.AddDeployKey(ctx.Repo.Repository.ID, ctx.User.ID, form.Title, content, !form.IsWritable)
 	if err != nil {
 		ctx.Data["HasError"] = true
 		switch {
