@@ -1288,6 +1288,8 @@ func (opts *IssuesOptions) setupSession(sess *xorm.Session) error {
 		sess.And("issue.is_pull=?", true)
 	case util.OptionalBoolFalse:
 		sess.And("issue.is_pull=?", false)
+	case util.OptionalBoolNone:
+		sess.Or("issue.is_pull=?", true)
 	}
 
 	if len(opts.Labels) > 0 && opts.Labels != "0" {
