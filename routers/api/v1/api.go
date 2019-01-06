@@ -622,7 +622,8 @@ func RegisterRoutes(m *macaron.Macaron) {
 		m.Group("/orgs/:orgname", func() {
 			m.Get("/repos", reqToken(), user.ListOrgRepos)
 			m.Combo("").Get(org.Get).
-				Patch(reqToken(), reqOrgOwnership(), bind(api.EditOrgOption{}), org.Edit)
+				Patch(reqToken(), reqOrgOwnership(), bind(api.EditOrgOption{}), org.Edit).
+				Delete(reqToken(), reqOrgOwnership(), org.Delete)
 			m.Group("/members", func() {
 				m.Get("", reqToken(), org.ListMembers)
 				m.Combo("/:username").Get(reqToken(), org.IsMember).
